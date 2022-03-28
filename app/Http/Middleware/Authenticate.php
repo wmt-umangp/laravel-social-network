@@ -15,11 +15,9 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (!Auth::guard($guard)->check()) {
-            return route('signin');
-        }
-        if (! $request->expectsJson()) {
-            return route('signin');
-        }
+            if (! $request->expectsJson()) {
+                return route('showsignin');
+            }
+        return $next($request);
     }
 }

@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master-2')
 
 @section('title')
     Login
@@ -6,10 +6,10 @@
 
 @section('content')
     <div class="row mt-5 gx-5">
-        <div class="col-md-6">
+        <div class="col-md-6 mt-5">
             <img src="https://s3.amazonaws.com/paperform-blog/2021/08/Blog-feature-image---purple--12-.png" width='100%' height="100%" alt="Signin">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6 mt-5">
             <h3 class="text-center">Sign In</h3>
             <form action="{{ route('signin') }}" method="POST" novalidate>
                 @csrf

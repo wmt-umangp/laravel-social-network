@@ -44,7 +44,7 @@ class UserController extends Controller
         $user->password=$password;
         $user->save();
 
-        // Auth::login($user);
+        Auth::login($user);
         return redirect()->route('dashboard')->with('rmsg','Great! You have Successfully loggedin');;
     }
     public function postSignIn(Request $req){
@@ -64,8 +64,8 @@ class UserController extends Controller
         }
         return redirect()->back();
     }
-
-    public function getdashboard(){
-        return view('dashboard');
+    public function getLogout(){
+        Auth::logout();
+        return redirect()->route('showsignin');
     }
 }

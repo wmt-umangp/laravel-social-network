@@ -16,6 +16,16 @@
                         <a class="nav-link" href="#">Link</a>
                     </li>
                 </ul>
+                <ul class="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Welcome, {{ Auth::user()->name }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
+                        </ul>
+                      </li>
+                </ul>
             </div>
         </div>
     </nav>
