@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PostController;
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,3 +35,16 @@ Route::get('/postdelete/{post_id}',[PostController::class,'getDeletePost'])->nam
 
 //for logout
 Route::get('/logout',[UserController::class,'getLogout'])->name('logout');
+
+//for edit
+Route::post('/edit',[PostController::class,'postEditPost'])->name('edit');
+
+
+//for account view
+Route::get('/account',[UserController::class,'getAccount'])->name('account');
+
+//for account update
+Route::post('/updateaccount',[UserController::class,'postSaveAccount'])->name('account.save');
+
+//for image display
+Route::get('/userimage{filename}',[UserController::class,'getUserImage'])->name('account.image');

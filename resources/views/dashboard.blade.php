@@ -20,26 +20,60 @@
             </div>
         </form>
     </div>
-    <hr>
-    <div class="col-md-12 posts d-flex flex-column justify-content-center align-items-center">
+
+    <div class="col-md-12 posts">
+        <div class="row gy-3">
         <header>
-            <h3>What other people say</h3>
+            <h3 class="text-center">What other people say</h3>
         </header>
         @foreach ($posts as $post)
-            <article class="post">
-                <p>{{$post->body}}</p>
-                <div class="info">
-                    Posted By {{$post->user->name}} on {{$post->created_at->format('h:i:s d/m/Y')}}
+                <div class="col-12 col-md-6">
+                    <article class="post" data-postid="{{$post->id}}">
+                        <p>{{$post->body}}</p>
+                        <div class="info">
+                            Posted By {{$post->user->name}} on {{$post->created_at->format('h:i:s d/m/Y')}}
+                        </div>
+                        <div class="interaction mt-3">
+                            <a href="#" class="text-decoration-none"><i class="far fa-thumbs-up icon"></i></a> |
+                            <a href="#" class="text-decoration-none"><i class="far fa-thumbs-down icon"></i></a> |
+                            @if (Auth::user() == $post->user)
+                                <a href="#" class="text-decoration-none edit"><i class="far fa-edit icon"></i></a> |
+                                <a href="{{ route('post.delete',['post_id'=>$post->id])}}" class="text-decoration-none"><i class="far fa-trash-alt icon"></i></a>
+                            @endif
+                        </div>
+                    </article>
                 </div>
-                <div class="interaction">
-                    <a href="#" class="text-decoration-none">Like</a> |
-                    <a href="#" class="text-decoration-none">Dislike</a> |
-                    <a href="#" class="text-decoration-none">Edit</a> |
-                    <a href="{{ route('post.delete',['post_id'=>$post->id])}}" class="text-decoration-none">Delete</a> |
-                </div>
-            </article>
         @endforeach
-
+        </div>
     </div>
 </section>
+
+{{-- Modal for update --}}
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form>
+                <div class="form-group">
+                    <label for="post-body">Edit The Post</label>
+                    <textarea name="post-body" id="post-body" cols="30" rows="5" class="form-control" style="resize:none;"></textarea>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="modal-save">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+      var token='{{csrf_token()}}';
+      var url='{{ route('edit')}}';
+  </script>
 @endsection

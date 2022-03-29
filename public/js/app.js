@@ -1,0 +1,32 @@
+var postId=0;
+var postBodyElement=null;
+$(document).ready(function(){
+    $('.edit').click(function(event){
+        // console.log("hello");
+        event.preventDefault();
+        // console.log(this);
+        postBodyElement=event.target.parentNode.parentNode.parentNode.childNodes[1];
+        var postBody=postBodyElement.textContent;
+        postId=event.target.parentNode.parentNode.parentNode.dataset['postid'];
+        // console.log(postId);
+        // console.log(postBody);
+        $('#post-body').val(postBody);
+       $('#exampleModal').modal('show');
+    });
+    $('#modal-save').click(function() {
+        $.ajax({
+            method:'POST',
+            url: url,
+            data:{
+                body: $('#post-body').val(),
+                postId: postId,
+                _token: token
+            }
+        })
+        .done(function(msg){
+            // console.log(JSON.stringify(msg));
+            $(postBodyElement).text(msg['new-body']);
+            $('#exampleModal').modal('hide');
+        });
+    });
+});
