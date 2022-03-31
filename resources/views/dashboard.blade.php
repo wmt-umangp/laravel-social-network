@@ -29,12 +29,9 @@
                 @foreach ($posts as $post)
                     <div class="col-md-4">
                         <article class="post" data-postid="{{ $post->id }}">
-                            <div class="div-body text-break">
-                                <p>{{ $post->body }}</p>
-                            </div>
+                            <div class="div-body text-break"><p>{{ $post->body }}</p></div>
                             <div class="info mt-2">
-                                <small>Posted By {{ $post->user->name }} on
-                                    {{ $post->created_at->format('h:i:s d/m/Y') }}</small>
+                                <small>Posted By {{ $post->user->name }} on{{ $post->created_at->format('h:i:s d/m/Y') }}</small>
                             </div>
                             <div class="interaction mt-3">
                                 <a href="#"
