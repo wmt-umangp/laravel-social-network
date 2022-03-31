@@ -34,7 +34,7 @@
                             <small>Posted By {{$post->user->name}} on {{$post->created_at->format('h:i:s d/m/Y')}}</small>
                         </div>
                         <div class="interaction mt-3">
-                            <a href="#" class="text-decoration-none like ">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a> |
+                            <a href="#" class="text-decoration-none like " data-islike="{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? '1' : '0' : '0'  }}">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1 ? 'You like this post' : 'Like' : 'Like'  }}</a> |
                             <a href="#" class="text-decoration-none like">{{ Auth::user()->likes()->where('post_id', $post->id)->first() ? Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0 ? 'You don\'t like this post' : 'Dislike' : 'Dislike'  }}</a> |
                             @if (Auth::user() == $post->user)
                                 <a href="#" class="text-decoration-none edit ">Edit</a> |

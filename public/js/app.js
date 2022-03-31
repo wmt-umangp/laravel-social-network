@@ -31,9 +31,12 @@ $(document).ready(function(){
     });
 
     $('.like').click(function(event){
+
         event.preventDefault();
         var isLike=event.target.previousElementSibling==null;
         postId=event.target.parentNode.parentNode.dataset['postid'];
+         var like = $(this).attr('data-islike');
+         var id = $(this);
         // console.log(isLike);
         $.ajax({
             method:'POST',
@@ -45,12 +48,21 @@ $(document).ready(function(){
             }
         })
         .done(function (){
-            event.target.innerText = isLike ? event.target.innerText == 'Like' ? 'You like this post' : 'Like' : event.target.innerText == 'Dislike' ? 'You don\'t like this post' : 'Dislike';
+           
+             //isLike = $(this).attr('data-islike');
+            console.log('dd',like);
+             let text ='<i class="fa-regular fa-thumbs-up"></i>';
+             if(like!=1){
+                text ='<i class="fa-solid fa-thumbs-up"></i>';
+             }
+             $(id).attr('data-islike',((like==1)?0:1));
+             $(id).html(text);
+            /*event.target.innerText = isLike ? event.target.innerText == 'Like' ? 'You like this post' : 'Like' : event.target.innerText == 'Dislike' ? 'You don\'t like this post' : 'Dislike';
             if (isLike) {
                 event.target.nextElementSibling.innerText = 'Dislike';
             } else {
                 event.target.previousElementSibling.innerText = 'Like';
-            }
+            }*/
         });
     });
 });
