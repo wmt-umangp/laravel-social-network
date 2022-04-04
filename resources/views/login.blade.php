@@ -30,6 +30,12 @@
                 <button type="submit" class="btn btn-primary" name="submit">Sign In</button>
                 <a href="/signup" class="ms-2 text-decoration-none">create account</a>
             </form>
+            @if(Session::has('logerror'))
+            <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert">
+                <span>{{Session::get('logerror')}}</span>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        @endif
         </div>
     </div>
 @endsection

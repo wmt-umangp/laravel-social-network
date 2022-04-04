@@ -6,11 +6,11 @@ use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
 
 // for registration
-Route::get('/signup',[UserController::class,'showsignup']);
+Route::get('/signup',[UserController::class,'showsignup'])->middleware('access');
 Route::post('/postsignup',[UserController::class,'postSignUp'])->name('signup');
 
 //for login
-Route::get('/',[UserController::class,'showsignin'])->name('showsignin');
+Route::get('/',[UserController::class,'showsignin'])->name('showsignin')->middleware('access');
 Route::post('/postsignin',[UserController::class,'postSignIn'])->name('signin');
 
 //for dashboard
@@ -32,7 +32,7 @@ Route::post('/edit',[PostController::class,'postEditPost'])->name('edit');
 
 
 //for account view
-Route::get('/account',[UserController::class,'getAccount'])->name('account');
+Route::get('/account',[UserController::class,'getAccount'])->name('account')->middleware('auth');
 
 //for account update
 Route::post('/updateaccount',[UserController::class,'postSaveAccount'])->name('account.save');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\createpostvalidation;
 use App\Models\Post;
 use App\Models\Like;
 use Session;
@@ -14,13 +15,8 @@ class PostController extends Controller
         $posts=Post::orderBy('created_at','desc')->paginate(3);
         return view('dashboard',['posts'=>$posts]);
     }
-    public function postCreatePost(Request $request){
-        $request->validate([
-            'body'=>'required|max:1000'
-        ],[
-            'body.required'=>'Please Enter Text in Field!!',
-            'body.max'=>'maximum 1000 character allowed!!',
-        ]);
+    public function postCreatePost(createpostvalidation $request){
+        $request->validated();
         $post=new Post;
         $post->body=$request->input('body');
         $message="There was an error while creating post";
