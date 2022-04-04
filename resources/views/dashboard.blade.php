@@ -34,21 +34,24 @@
                                 <small>Posted By {{ $post->user->name }} on{{ $post->created_at->format('h:i:s d/m/Y') }}</small>
                             </div>
                             <div class="interaction mt-3">
-                                <a href="#"
-                                    class="text-decoration-none like ">{{ Auth::user()->likes()->where('post_id', $post->id)->first()? (Auth::user()->likes()->where('post_id', $post->id)->first()->like == 1? 'You like this post': 'Like'): 'Like' }}</a>
-                                |
-                                <a href="#"
-                                    class="text-decoration-none like">{{ Auth::user()->likes()->where('post_id', $post->id)->first()? (Auth::user()->likes()->where('post_id', $post->id)->first()->like == 0? 'You don\'t like this post': 'Dislike'): 'Dislike' }}</a>
-                                |
+
+                                @if($post->is_liked_by_auth_user())
+                                    <a href="{{route('reply.dislike',['id'=>$post->id])}}" class="fa-solid fa-thumbs-down text-decoration-none me-3" style="font-size:25px"></a>
+                                @else
+                                    <a href="{{route('reply.like',['id'=>$post->id])}}" class="fa-solid fa-thumbs-up text-decoration-none me-3" style="font-size:25px"></a>
+                                @endif
                                 @if (Auth::user() == $post->user)
-                                    <a href="#" class="text-decoration-none edit ">Edit</a> |
+                                    <a href="#" class="text-decoration-none edit fa-solid fa-pen-to-square me-3" style="font-size:25px"></a>
                                     <a href="{{ route('post.delete', ['post_id' => $post->id]) }}"
-                                        class="text-decoration-none">Delete</a>
+                                        class="text-decoration-none fa-solid fa-trash-can me-3" style="font-size:25px"></a>
                                 @endif
                             </div>
                         </article>
                     </div>
                 @endforeach
+            </div>
+            <div class="d-flex mt-3 justify-content-center">
+                {!! $posts->links('vendor.pagination.custom') !!}
             </div>
         </div>
     </section>
@@ -79,6 +82,5 @@
     <script>
         var token = '{{ csrf_token() }}';
         var urlEdit = '{{ route('edit') }}';
-        var urlLike = '{{ route('like') }}'
     </script>
 @endsection

@@ -40,6 +40,6 @@ Route::post('/updateaccount',[UserController::class,'postSaveAccount'])->name('a
 //for image display
 Route::get('/userimage{filename}',[UserController::class,'getUserImage'])->name('account.image');
 
-
-//for like
-Route::post('/like',[PostController::class,'postLikePost'])->name('like');
+//for final like and dislike
+Route::get('/like/{id}',[PostController::class,'save_like'])->name('reply.like');
+Route::get('/dislike/{id}',[PostController::class,'save_dislike'])->name('reply.dislike');

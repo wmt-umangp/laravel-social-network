@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
 use App\Models\Like;
+use Session;
 
 class PostController extends Controller
 {
     public function getdashboard(){
-        $posts=Post::orderBy('created_at','desc')->get();
+        $posts=Post::orderBy('created_at','desc')->paginate(3);
         return view('dashboard',['posts'=>$posts]);
     }
     public function postCreatePost(Request $request){
@@ -26,7 +27,6 @@ class PostController extends Controller
         if($request->user()->posts()->save($post)){
             $message="Post Created Successfully!!";
         }
-        // dd($request->user());
         return redirect()->route('dashboard')->with(['message'=>$message]);
     }
 
@@ -52,34 +52,21 @@ class PostController extends Controller
         $post->update();
         return response()->json(['new-body'=>$post->body],200);
     }
-    public function postLikePost(Request $request){
-        $post_id = $request['postId'];
-        $is_like = $request['isLike'] === 'true';
-        $update = false;
-        $post = Post::find($post_id);
-        if (!$post) {
-            return null;
-        }
-        $user = Auth::user();
-        $like = $user->likes()->where('post_id', $post_id)->first();
-        if ($like) {
-            $already_like = $like->like;
-            $update = true;
-            if ($already_like == $is_like) {
-                $like->delete();
-                return null;
-            }
-        } else {
-            $like = new Like();
-        }
-        $like->like = $is_like;
-        $like->user_id = $user->id;
-        $like->post_id = $post->id;
-        if ($update) {
-            $like->update();
-        } else {
-            $like->save();
-        }
-        return null;
+    // Save Likes
+    public function save_like(Request $request,$id){
+        $like= new Like;
+        $like->post_id=$id;
+        $like->user_id=Auth::id();
+        $like->like=1;
+        $like->save();
+        Session::flash('success','you liked the post');
+        return redirect()->back();
+    }
+    //delete desilikes
+    public function save_dislike($id){
+        $like=Like::where('post_id',$id)->where('user_id', Auth::id())->first();
+        $like->delete();
+        Session::flash('success','You Disliked The Post');
+        return redirect()->back();
     }
 }
