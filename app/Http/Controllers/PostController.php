@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\createpostvalidation;
+use App\Http\Requests\CreatePostFormRequest;
 use App\Models\Post;
 use App\Models\Like;
 use Session;
@@ -15,7 +15,7 @@ class PostController extends Controller
         $posts=Post::orderBy('created_at','desc')->paginate(3);
         return view('dashboard',['posts'=>$posts]);
     }
-    public function postCreatePost(createpostvalidation $request){
+    public function postCreatePost(CreatePostFormRequest $request){
         $request->validated();
         $post=new Post;
         $post->body=$request->input('body');
@@ -35,11 +35,11 @@ class PostController extends Controller
         return redirect()->route('dashboard')->with(['message'=>'Successfully Deleted!!']);
     }
     public function postEditPost(Request $request){
-        $request->validate([
-            'body'=>'required'
-        ],[
-            'body.required'=>'Please Enter Text'
-        ]);
+        // $request->validated();
+        // if ($validator->fails())
+        // {
+        //     return response()->json(['errors'=>$validator->errors()->all()]);
+        // }
         $post=Post::find($request['postId']);
         if(Auth::user() != $post->user){
             return redirect()->back();

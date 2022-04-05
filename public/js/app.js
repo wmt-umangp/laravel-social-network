@@ -13,7 +13,12 @@ $(document).ready(function(){
         $('#post-body').val(postBody);
        $('#exampleModal').modal('show');
     });
-    $('#modal-save').click(function() {
+
+    $('#modal-save').click(function(e) {
+        if(!$('#editmodal').valid()){
+            e.preventDefault()
+        }
+
         $.ajax({
             method:'POST',
             url: urlEdit,
@@ -24,9 +29,26 @@ $(document).ready(function(){
             }
         })
         .done(function(msg){
+            // if(msg.errors)
+            // {
+            //     jQuery('.alert-danger').html('');
+
+            //     jQuery.each(msg.errors, function(key, value){
+            //         jQuery('.alert-danger').show();
+            //         jQuery('.alert-danger').append('<li>'+value+'</li>');
+            //     });
+            // }
+            // else
+            // {
+            //     jQuery('.alert-danger').hide();
+            //     $('#open').hide();
+            //     $('#myModal').modal('hide');
+            // }
             // console.log(JSON.stringify(msg));
             $(postBodyElement).text(msg['new-body']);
             $('#exampleModal').modal('hide');
         });
     });
+
+    $("[data-bs-toggle='tooltip']").tooltip();
 });

@@ -13,15 +13,20 @@ Route::post('/postsignup',[UserController::class,'postSignUp'])->name('signup');
 Route::get('/',[UserController::class,'showsignin'])->name('showsignin')->middleware('access');
 Route::post('/postsignin',[UserController::class,'postSignIn'])->name('signin');
 
-//for dashboard
-Route::get('/dashboard',[PostController::class,'getdashboard'])->name('dashboard')->middleware('auth');
 
+Route::middleware('auth')->group(function () {
+    //for dashboard
+    Route::get('/dashboard',[PostController::class,'getdashboard'])->name('dashboard');
 
-//for post creation
-Route::post('/createpost',[PostController::class,'postCreatePost'])->name('post.create')->middleware('auth');
+    //for post creation
+    Route::post('/createpost',[PostController::class,'postCreatePost'])->name('post.create');
 
-//for post deletion
-Route::get('/postdelete/{post_id}',[PostController::class,'getDeletePost'])->name('post.delete')->middleware('auth');
+    //for post deletion
+    Route::get('/postdelete/{post_id}',[PostController::class,'getDeletePost'])->name('post.delete');
+
+    //for account view
+    Route::get('/account',[UserController::class,'getAccount'])->name('account');
+});
 
 
 //for logout
@@ -31,8 +36,7 @@ Route::get('/logout',[UserController::class,'getLogout'])->name('logout');
 Route::post('/edit',[PostController::class,'postEditPost'])->name('edit');
 
 
-//for account view
-Route::get('/account',[UserController::class,'getAccount'])->name('account')->middleware('auth');
+
 
 //for account update
 Route::post('/updateaccount',[UserController::class,'postSaveAccount'])->name('account.save');

@@ -9,9 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
 use App\Models\User;
-use App\Http\Requests\signupvalidation;
-use App\Http\Requests\signinvalidation;
-use App\Http\Requests\filevalidation;
+use App\Http\Requests\RegisterFormRequest;
+use App\Http\Requests\LoginFormRequest;
+use App\Http\Requests\FileFormRequest;
 use Session;
 
 class UserController extends Controller
@@ -22,7 +22,7 @@ class UserController extends Controller
     public function showsignin(){
         return view('login');
     }
-    public function postSignUp(signupvalidation $request){
+    public function postSignUp(RegisterFormRequest $request){
         $request->validated();
         $name=$request->input('name');
         $email=$request->input('email');
@@ -39,7 +39,7 @@ class UserController extends Controller
         Session::put('log',$email);
         return redirect()->route('dashboard')->with('rmsg','Great! You have Successfully loggedin');;
     }
-    public function postSignIn(signinvalidation $req){
+    public function postSignIn(LoginFormRequest $req){
         $req->validated();
         $email=$req->input('email');
         $password=$req->input('password');
@@ -57,7 +57,7 @@ class UserController extends Controller
     public function getAccount(){
         return view('account',['user'=>Auth::user()]);
     }
-    public function postSaveAccount(filevalidation $request){
+    public function postSaveAccount(FileFormRequest $request){
         $request->validated();
         $user=Auth::user();
         $user->name=$request->input('name');

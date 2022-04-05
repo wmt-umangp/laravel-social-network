@@ -8,7 +8,7 @@
 <section class="row new-post">
     <div class="col-md-6 col-md-offset-3">
         <header><h3>Your Account</h3></header>
-        <form action="{{ route('account.save') }}" method="post" enctype="multipart/form-data">
+        <form action="{{ route('account.save') }}" method="post" id="account" enctype="multipart/form-data">
             @csrf
             <div class="form-group mb-4">
                 <label for="first_name">First Name</label>
@@ -19,6 +19,9 @@
             </div>
             <div class="form-group mb-4">
                 <label for="image">Image</label>
+                <span>
+                    <i class="fa-solid fa-circle-info text-primary" data-bs-toggle="tooltip" data-bs-placement="right" title="Image Size Must be Less Than 3 MB" style="font-size: 20px"></i>
+                </span>
                 <input type="file" name="image" class="form-control" id="image">
                 @if ($errors->has('image'))
                     <span class="text-danger">*{{ $errors->first('image') }}</span>
@@ -37,3 +40,4 @@
     </section>
 @endif
 @endsection
+

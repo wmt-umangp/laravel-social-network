@@ -46,3 +46,10 @@
     text-align:justify;
     word-wrap: break-word;
 }
+
+.error{
+    color: red;
+}
+.error::before{
+    content: '*';
+}

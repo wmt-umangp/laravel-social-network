@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-6 mt-5">
             <h3 class="text-center">Sign Up</h3>
-            <form action="{{ route('signup') }}" method="post" novalidate>
+            <form action="{{ route('signup') }}" method="post" id="signup" novalidate>
                 @csrf
                 <div class="mb-3">
                     <label for="name" class="form-label">Name</label>

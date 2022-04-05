@@ -11,7 +11,7 @@
         </div>
         <div class="col-md-6 mt-5">
             <h3 class="text-center">Sign In</h3>
-            <form action="{{ route('signin') }}" method="POST" novalidate>
+            <form action="{{ route('signin') }}" method="POST" id="signin" novalidate>
                 @csrf
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
