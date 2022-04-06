@@ -29,9 +29,9 @@
                 @foreach ($posts as $post)
                     <div class="col-md-4">
                         <article class="post" data-postid="{{ $post->id }}">
-                            <div class="div-body text-break"><p>{{ $post->body }}</p></div>
+                            <div class="div-body text-break"><p>{!!"<pre><span style='font-size:17px;font-family: Arial'> $post->body </span></pre>"!!}</p></div>
                             <div class="info mt-2">
-                                <small>Posted By {{ $post->user->name }} on{{ $post->created_at->format('h:i:s d/m/Y') }}</small>
+                                <small>Posted By {{ $post->user->name }} on {{ $post->created_at->format('h:i:s d/m/Y') }}</small>
                             </div>
                             <div class="interaction mt-3">
 
@@ -55,12 +55,13 @@
             </div>
         </div>
     </section>
+
     {{-- Modal for update --}}
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Edit Post</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Edit Description</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">

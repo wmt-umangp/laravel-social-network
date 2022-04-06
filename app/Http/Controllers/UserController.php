@@ -57,21 +57,31 @@ class UserController extends Controller
     public function getAccount(){
         return view('account',['user'=>Auth::user()]);
     }
+    public function editAccount(){
+        return view('editaccount',['user'=>Auth::user()]);
+    }
+
     public function postSaveAccount(FileFormRequest $request){
-        $request->validated();
-        $user=Auth::user();
-        $user->name=$request->input('name');
-        $user->update();
-        $file=$request->file('image');
-        // $extension = $file->getClientOriginalExtension();
-        $filename=$request['name'].'-'.$user->id.'.jpg';
-        if($file){
-            Storage::disk('local')->put($filename,File::get($file));
+            $request->validated();
+            $user=Auth::user();
+            $files = $request->file('image');
+            // $folder = public_path('../../../../images/' . 'User-'.Auth::user()->id . '/');
+            $folder='public/images/User-'.Auth::user()->id.'/';
+            $filename=$files->getClientOriginalName();
+
+
+            if (!Storage::exists($folder)) {
+                Storage::makeDirectory($folder, 0775, true, true);
+            }
+
+            if (!empty($files)) {
+                $files->storeAs($folder,$filename);
+                $files->move('uploads/images/User-'.Auth::user()->id.'/',$filename);
+                $user->name=$request->input('name');
+                $user->image=$files->getClientOriginalName();
+                $user->update();
+            }
+
+            return redirect()->route('account');
         }
-        return redirect()->route('account');
-    }
-    public function getUserImage($filename){
-        $file= Storage::disk('local')->get($filename);
-        return new Response($file,200);
-    }
 }

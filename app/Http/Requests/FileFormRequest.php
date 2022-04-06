@@ -25,7 +25,7 @@ class FileFormRequest extends FormRequest
     {
         return [
             'name'=>'required|max:120',
-            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|size:3072',
+            'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:3000',
         ];
     }
     public function messages()
@@ -36,7 +36,7 @@ class FileFormRequest extends FormRequest
             'image.required'=>'Please Upload Image',
             'image.image'=>'File Must be image',
             'image.mimes'=>'Supported Image formats are jpg, png, jpeg, gif, svg',
-            'image.size'=>'Image Size Must Be Less Than 3MB'
+            'image.max'=>'Image Size Must Be Less Than 3MB'
         ];
     }
 }

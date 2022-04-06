@@ -10,13 +10,21 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ms-auto me-5 mb-2 mb-lg-0">
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                          Welcome, {{ Auth::user()->name }}
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <li><a class="dropdown-item" href="{{route('account')}}">Account</a></li>
-                          <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
-                        </ul>
+                        <div class="row align-items-center justify-content-center">
+                            <div class="col-3">
+                                <img src="{{url('uploads/images/User-'.Auth::user()->id.'/',Auth::user()->image)}}" id="myimage" alt="" class="img-responsive rounded-circle" width='50' height='50'>
+                            </div>
+                            <div class="col-9">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ Auth::user()->name }}
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" href="{{route('account')}}">Account</a></li>
+                                    <li><a class="dropdown-item" href="{{route('logout')}}">Logout</a></li>
+                                  </ul>
+                            </div>
+                        </div>
+
                       </li>
                 </ul>
             </div>

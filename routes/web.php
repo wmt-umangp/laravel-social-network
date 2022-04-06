@@ -26,23 +26,27 @@ Route::middleware('auth')->group(function () {
 
     //for account view
     Route::get('/account',[UserController::class,'getAccount'])->name('account');
+
+    //for editaccount view
+    Route::get('/editaccount',[UserController::class,'editaccount'])->name('editaccount');
+
+
+     //for account update
+     Route::post('/updateaccount',[UserController::class,'postSaveAccount'])->name('account.save');
+
+    //for edit
+    Route::post('/edit',[PostController::class,'postEditPost'])->name('edit');
+
+
+
 });
 
 
 //for logout
 Route::get('/logout',[UserController::class,'getLogout'])->name('logout');
 
-//for edit
-Route::post('/edit',[PostController::class,'postEditPost'])->name('edit');
 
 
-
-
-//for account update
-Route::post('/updateaccount',[UserController::class,'postSaveAccount'])->name('account.save');
-
-//for image display
-Route::get('/userimage{filename}',[UserController::class,'getUserImage'])->name('account.image');
 
 //for final like and dislike
 Route::get('/like/{id}',[PostController::class,'save_like'])->name('reply.like');
