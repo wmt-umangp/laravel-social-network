@@ -13,10 +13,10 @@
               </div>
             <div class="row g-0">
               <div class="col-12 col-md-5 ">
-                <img src="{{url('uploads/images/User-'.$user->id.'/',$user->image)}}" alt="" class="img-responsive" width='200' height='200'>
+                <img src="{{ $user->image}}" alt="" class="img-responsive" width='200' height='200'>
               </div>
               <div class="col-12 col-md-7 ">
-                <div class="card-body"> 
+                <div class="card-body">
                     <p><i class="fa-solid fa-user text-primary"></i><span class="card-title ms-2 h5">{{ $user->name}}</span></p>
                     <p><i class="fa-solid fa-envelope text-primary"></i><span class="card-text ms-2">{{$user->email}}</span></p>
                     <p><a href="{{ route('editaccount')}}" class="btn btn-primary mt-4"><i class="fa-solid fa-pen-to-square me-2"></i>Edit Profile</a></p>

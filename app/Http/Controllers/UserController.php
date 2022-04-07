@@ -65,23 +65,17 @@ class UserController extends Controller
             $request->validated();
             $user=Auth::user();
             $files = $request->file('image');
-            // $folder = public_path('../../../../images/' . 'User-'.Auth::user()->id . '/');
             $folder='public/images/User-'.Auth::user()->id.'/';
             $filename=$files->getClientOriginalName();
-
-
             if (!Storage::exists($folder)) {
                 Storage::makeDirectory($folder, 0775, true, true);
             }
-
             if (!empty($files)) {
                 $files->storeAs($folder,$filename);
-                $files->move('uploads/images/User-'.Auth::user()->id.'/',$filename);
                 $user->name=$request->input('name');
                 $user->image=$files->getClientOriginalName();
                 $user->update();
             }
-
             return redirect()->route('account');
         }
 }
